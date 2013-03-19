@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8039CC9416F88A61008F8B0D /* tdViewGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8039CC9316F88A61008F8B0D /* tdViewGame.m */; };
 		805D12DA16F86E8F009A4DBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805D12D916F86E8F009A4DBA /* UIKit.framework */; };
 		805D12DC16F86E8F009A4DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805D12DB16F86E8F009A4DBA /* Foundation.framework */; };
 		805D12DE16F86E8F009A4DBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805D12DD16F86E8F009A4DBA /* CoreGraphics.framework */; };
@@ -18,9 +19,15 @@
 		805D12F016F86E8F009A4DBA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 805D12EF16F86E8F009A4DBA /* Default-568h@2x.png */; };
 		805D12F316F86E8F009A4DBA /* tdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 805D12F216F86E8F009A4DBA /* tdViewController.m */; };
 		805D12F616F86E8F009A4DBA /* tdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 805D12F416F86E8F009A4DBA /* tdView.xib */; };
+		805D130116F87298009A4DBA /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 805D130016F87298009A4DBA /* Cell.m */; };
+		805D130416F87659009A4DBA /* Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 805D130316F87659009A4DBA /* Path.m */; };
+		805D130A16F8778B009A4DBA /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 805D130916F8778B009A4DBA /* Tower.m */; };
+		805D130D16F8782E009A4DBA /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 805D130C16F8782E009A4DBA /* Map.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8039CC9216F88A61008F8B0D /* tdViewGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tdViewGame.h; sourceTree = "<group>"; };
+		8039CC9316F88A61008F8B0D /* tdViewGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tdViewGame.m; sourceTree = "<group>"; };
 		805D12D616F86E8F009A4DBA /* Tower Defense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tower Defense.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805D12D916F86E8F009A4DBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		805D12DB16F86E8F009A4DBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,6 +44,14 @@
 		805D12F116F86E8F009A4DBA /* tdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tdViewController.h; sourceTree = "<group>"; };
 		805D12F216F86E8F009A4DBA /* tdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tdViewController.m; sourceTree = "<group>"; };
 		805D12F516F86E8F009A4DBA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/tdView.xib; sourceTree = "<group>"; };
+		805D12FF16F87298009A4DBA /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		805D130016F87298009A4DBA /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		805D130216F87659009A4DBA /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
+		805D130316F87659009A4DBA /* Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Path.m; sourceTree = "<group>"; };
+		805D130816F8778B009A4DBA /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tower.h; path = ../Tower.h; sourceTree = "<group>"; };
+		805D130916F8778B009A4DBA /* Tower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tower.m; path = ../Tower.m; sourceTree = "<group>"; };
+		805D130B16F8782E009A4DBA /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		805D130C16F8782E009A4DBA /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +103,17 @@
 				805D12F116F86E8F009A4DBA /* tdViewController.h */,
 				805D12F216F86E8F009A4DBA /* tdViewController.m */,
 				805D12F416F86E8F009A4DBA /* tdView.xib */,
+				8039CC9216F88A61008F8B0D /* tdViewGame.h */,
+				8039CC9316F88A61008F8B0D /* tdViewGame.m */,
 				805D12E016F86E8F009A4DBA /* Supporting Files */,
+				805D12FF16F87298009A4DBA /* Cell.h */,
+				805D130016F87298009A4DBA /* Cell.m */,
+				805D130B16F8782E009A4DBA /* Map.h */,
+				805D130C16F8782E009A4DBA /* Map.m */,
+				805D130216F87659009A4DBA /* Path.h */,
+				805D130316F87659009A4DBA /* Path.m */,
+				805D130816F8778B009A4DBA /* Tower.h */,
+				805D130916F8778B009A4DBA /* Tower.m */,
 			);
 			path = "Tower Defense";
 			sourceTree = "<group>";
@@ -177,6 +202,11 @@
 				805D12E616F86E8F009A4DBA /* main.m in Sources */,
 				805D12EA16F86E8F009A4DBA /* tdAppDelegate.m in Sources */,
 				805D12F316F86E8F009A4DBA /* tdViewController.m in Sources */,
+				805D130116F87298009A4DBA /* Cell.m in Sources */,
+				805D130416F87659009A4DBA /* Path.m in Sources */,
+				805D130A16F8778B009A4DBA /* Tower.m in Sources */,
+				805D130D16F8782E009A4DBA /* Map.m in Sources */,
+				8039CC9416F88A61008F8B0D /* tdViewGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +331,7 @@
 				805D12FE16F86E8F009A4DBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
