@@ -16,6 +16,6 @@
 @property (nonatomic, assign) CGFloat xOffset;
 
 - (void) moveViewByX:(CGFloat)deltaX Y:(CGFloat)deltaY;
-
+- (void) zoomBy:(CGFloat)deltaDistance Around:(CGPoint)point;
 @end
 

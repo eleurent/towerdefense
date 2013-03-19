@@ -8,6 +8,9 @@
 
 #import "tdViewGame.h"
 #import "Tower.h"
+#define REAL_DISTANCE 400
+#define ZOOM_MAX 2.5
+#define ZOOM_MIN 1.0
 
 @implementation tdViewGame
 
@@ -54,5 +57,21 @@
 - (void) moveViewByX:(CGFloat)deltaX Y:(CGFloat)deltaY {
     self.xOffset += deltaX;
     self.yOffset += deltaY;
+}
+
+- (void) zoomBy:(CGFloat)deltaDistance Around:(CGPoint)point {
+    NSLog(@"x %f y %f", point.x, point.y);
+    NSLog(@"Xreel1 %f", (self.xOffset + point.x)/self.zoom);
+    CGFloat zoom1 = self.zoom;
+    CGFloat zoom2 = zoom1 + deltaDistance/REAL_DISTANCE;
+    if (zoom2 < ZOOM_MIN)
+        zoom2 = ZOOM_MIN;
+    if (zoom2 > ZOOM_MAX)
+        zoom2 = ZOOM_MAX;
+    self.xOffset = zoom2/zoom1*(self.xOffset-point.x) + point.x;
+    self.yOffset = zoom2/zoom1*(self.yOffset-point.y) + point.y;
+    self.zoom = zoom2;
+
+    NSLog(@"Xreel2 %f", (self.xOffset + point.x)/self.zoom);
 }
 @end

@@ -45,10 +45,18 @@ static CGFloat distanceOrigin;
         case 1: {
             CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
             [view moveViewByX:touchPoint.x - touchOrigin.x Y:touchPoint.y - touchOrigin.y];
-            touchOrigin = [[touches anyObject] locationInView:self.view];
+            touchOrigin = touchPoint;
         } break;
         case 2: {
-            
+            UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+            UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
+            CGPoint t1 = [touch1 locationInView:[self view]];
+            CGPoint t2 = [touch2 locationInView:[self view]];
+            CGFloat distance = [self distanceBetweenTwoPoints:t1
+                                                            toPoint:t2];
+            CGPoint centre = CGPointMake((t1.x+t2.x)/2, (t1.y+t2.y)/2);
+            [view zoomBy:distance-distanceOrigin Around:centre];
+            distanceOrigin = distance;
         } break;
     }
     [self.view setNeedsDisplay];
