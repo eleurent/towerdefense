@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface tdViewController : UIViewController
-
+- (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
 @end

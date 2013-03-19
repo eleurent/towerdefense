@@ -12,8 +12,10 @@
 @interface tdViewGame : UIView
 @property (nonatomic, strong) Map *map;
 @property (nonatomic, assign) float zoom;
-@property (nonatomic, assign) int yOffset;
-@property (nonatomic, assign) int xOffset;
+@property (nonatomic, assign) CGFloat yOffset;
+@property (nonatomic, assign) CGFloat xOffset;
+
+- (void) moveViewByX:(CGFloat)deltaX Y:(CGFloat)deltaY;
 
 @end
 

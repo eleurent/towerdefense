@@ -51,4 +51,8 @@
     CGContextFillEllipseInRect(context, rectTower);
 }
 
+- (void) moveViewByX:(CGFloat)deltaX Y:(CGFloat)deltaY {
+    self.xOffset += deltaX;
+    self.yOffset += deltaY;
+}
 @end
