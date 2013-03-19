@@ -14,6 +14,15 @@
 
 @implementation tdViewController
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if ([touches count] == 1) {
+        // one finger
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
+        NSLog(@"x = %f", touchPoint.x);
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -13,4 +13,7 @@
 @property (assign, nonatomic) int speed;
 @property (assign, nonatomic) float radius;
 @property (assign, nonatomic) UIColor *color;
+
+- (id) initStandardWithPositionX:(int)x Y:(int)y;
+- (float) getRadiusWithZoom:(float)zoom;
 @end

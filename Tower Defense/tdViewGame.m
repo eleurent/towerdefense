@@ -7,6 +7,7 @@
 //
 
 #import "tdViewGame.h"
+#import "Tower.h"
 
 @implementation tdViewGame
 
@@ -19,13 +20,35 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    self.zoom = 1.0;
+    self.map = [[Map alloc] initWithWidth:40 andHeight:30];
+}
+
+
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    [self drawGrassInContext:context];
+    
+    for (Tower *t in self.map.towers) {
+        [self drawTower:t inContext:context];
+    }
 }
-*/
+
+- (void) drawGrassInContext:(CGContextRef)context {
+    CGContextSetFillColorWithColor(context, [[UIColor greenColor] CGColor]);
+    CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+}
+
+- (void) drawTower:(Tower*) t inContext:(CGContextRef)context {
+    CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
+    CGPoint position = [t getCoordinatesinMap:self.map withOffsetX:self.xOffset Y:self.yOffset andZoom:self.zoom];
+    float radius = [t getRadiusWithZoom:self.zoom];
+    CGRect rectTower = CGRectMake(position.x - radius/2, position.y - radius/2, radius, radius);
+    CGContextFillEllipseInRect(context, rectTower);
+}
 
 @end

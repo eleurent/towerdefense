@@ -10,6 +10,10 @@
 #import "Map.h"
 
 @interface tdViewGame : UIView
-@property (nonatomic, assign) Map *map;
+@property (nonatomic, strong) Map *map;
+@property (nonatomic, assign) float zoom;
+@property (nonatomic, assign) int yOffset;
+@property (nonatomic, assign) int xOffset;
+
 @end
 

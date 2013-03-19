@@ -13,7 +13,7 @@
 @property (strong, nonatomic) NSMutableArray *towers;
 @property (strong, nonatomic) NSMutableArray *creeps;
 @property (assign, nonatomic) int width;
-@property (assign, nonatomic) int heigth;
+@property (assign, nonatomic) int height;
 
 - (id)initWithWidth:(int)width andHeight:(int)height;
 @end

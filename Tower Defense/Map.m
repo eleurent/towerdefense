@@ -7,14 +7,24 @@
 //
 
 #import "Map.h"
+#import "Tower.h"
+
+
 
 @implementation Map
 
 - (id)initWithWidth:(int)width andHeight:(int)height{
     if (self = [super init]) {
         self.width = width;
-        self.heigth = height;
-        self.cells = [[NSMutableArray alloc] init];
+        self.height = height;
+        self.towers = [[NSMutableArray alloc] init];
+        self.paths = [[NSMutableArray alloc] init];
+        self.creeps = [[NSMutableArray alloc] init];
+        
+        for (int i=0; i<40;i++) {
+            Tower *tower = [[Tower alloc] initStandardWithPositionX:rand()%width Y:rand()%height];
+            [self.towers addObject:tower];
+        }
     }
     return self;
 }
