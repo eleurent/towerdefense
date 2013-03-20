@@ -12,9 +12,10 @@
 - (id) initStandardWithPositionX:(int)x Y:(int)y {
     self = [super initWithPositionX:x Y:y];
     if (self) {
-        self.radius = 0.5;
+        self.radius = 0.7;
         self.fieldOfView = 4;
         self.speed = 1;
+        self.color = [UIColor colorWithRed:0.8 green:0.2 blue:0.1 alpha:1];
     }
     return self;
 }
