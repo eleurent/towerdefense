@@ -23,6 +23,10 @@
             // one finger
             touchOrigin = [[touches anyObject] locationInView:self.view];
             touchOriginSelection = [[touches anyObject] locationInView:self.view];
+            tdViewGame* viewGame = (tdViewGame*) self.view;
+            if ([viewGame menuCellTouchedIn:touchOrigin]) {
+                isCreatingTower = YES;
+            }
         }
         break;
         case 2: {
@@ -39,22 +43,33 @@
 {
     NSSet *allTouches = [event allTouches];
     tdViewGame *view = (tdViewGame*)self.view;
-    switch([allTouches count]) {
-        case 1: {
-            [self moveView:view fromTouches:allTouches];
-        } break;
-        case 2: {
-            [self zoomView:view fromTouches:allTouches];
-        } break;
+    if (isCreatingTower) {
+        [view moveCreatedTowerToPosition:[[touches anyObject] locationInView:self.view]];
+    }
+    else {
+        switch([allTouches count]) {
+            case 1: {
+                [self moveView:view fromTouches:allTouches];
+            } break;
+            case 2: {
+                [self zoomView:view fromTouches:allTouches];
+            } break;
+        }
     }
     [self.view setNeedsDisplay];
 }
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    CGPoint touchEnd = [[touches anyObject] locationInView:self.view];
-    if ([self distanceBetweenTwoPoints:touchOriginSelection toPoint:touchEnd] < 5) {
-        tdViewGame *view = (tdViewGame*)self.view;
-        [view selectTowerIn:touchOriginSelection];
+    tdViewGame *view = (tdViewGame*)self.view;
+    if (isCreatingTower) {
+        [view createTower];
+        isCreatingTower = NO;
+    }
+    else {
+        CGPoint touchEnd = [[touches anyObject] locationInView:self.view];
+        if ([self distanceBetweenTwoPoints:touchOriginSelection toPoint:touchEnd] < 5) {
+            [view selectTowerIn:touchOriginSelection];
+        }
     }
 }
 
@@ -82,10 +97,15 @@
     return sqrt(x * x + y * y);
 }
 
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    isCreatingTower = false;
     tdViewGame* viewGame = (tdViewGame*) self.view;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:viewGame
                                             selector:@selector(timeStep) userInfo:nil repeats:YES];

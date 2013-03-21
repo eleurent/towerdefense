@@ -9,21 +9,28 @@
 #import "Wave.h"
 
 @implementation Wave
-- (id) initWith:(int)number creeps:(Creep*)creep inDelay:(int)delay andDuration:(int)duration inMap:(Map*)map {
+
+- (id) initEmptyWave {
     self = [[Wave alloc] init];
-    if(self) {
+    if (self) {
         self.creeps = [[NSMutableArray alloc] init];
         self.times = [[NSMutableArray alloc] init];
-        [self fillCreepsWith:number creeps:creep inMap:map];
-        [self fillTimesWithDelay:delay andDuration:duration];
     }
-    NSLog(@"wave init");
     return self;
 }
 
-- (void) fillCreepsWith:(int)number creeps:(Creep*)creep inMap:(Map*)map {
+- (id) initWith:(int)number creeps:(Creep*)creep inDelay:(int)delay andDuration:(int)duration inMap:(Map*)map {
+    self = [[Wave alloc] initEmptyWave];
+    if(self) {
+        [self add:number creeps:creep inMap:map];
+        [self fillTimesWithDelay:delay andDuration:duration];
+    }
+    return self;
+}
+
+- (void) add:(int)number creeps:(Creep*)creep inMap:(Map*)map {
     for (int i=0; i<number;i++){
-        [self.creeps addObject:[[Creep alloc] initSmallCreepInMap:map]];
+        [self.creeps addObject:[[Creep alloc] initWithMap:map andCreep:creep]];
     }
 }
 

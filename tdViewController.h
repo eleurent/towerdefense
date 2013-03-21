@@ -12,6 +12,7 @@
     CGPoint touchOrigin;
     CGPoint touchOriginSelection;
     CGFloat distanceOrigin;
+    BOOL isCreatingTower;
 }
 @property (strong, nonatomic) NSTimer* timer;
 - (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;

@@ -15,11 +15,16 @@
 @property (nonatomic, assign) float zoom;
 @property (nonatomic, assign) CGFloat yOffset;
 @property (nonatomic, assign) CGFloat xOffset;
-@property (strong, nonatomic) Tower* selected;
+@property (strong, nonatomic) Tower* selectedTower;
+@property (strong, nonatomic) Tower* createdTower;
+@property (strong, nonatomic) NSMutableArray* menuTowers;
 
+- (BOOL) menuCellTouchedIn:(CGPoint)point;
 - (void) moveViewByX:(CGFloat)deltaX Y:(CGFloat)deltaY;
 - (void) zoomBy:(CGFloat)deltaDistance Around:(CGPoint)point;
 - (void) selectTowerIn:(CGPoint)point;
+- (void) moveCreatedTowerToPosition:(CGPoint)point;
+- (void) createTower;
 
 @end
 

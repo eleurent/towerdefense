@@ -28,7 +28,17 @@
 }
 
 - (id) initSmallCreepInMap:(Map*)map {
-    self = [[Creep alloc] initWithMap:map hp:3 speed:0.2 size:0.7 color:[UIColor yellowColor] price:20];
+    self = [[Creep alloc] initWithMap:map hp:3 speed:0.2 size:0.7 color:[UIColor yellowColor] price:10];
+    return self;
+}
+
+- (id) initBigCreepInMap:(Map*)map {
+    self = [[Creep alloc] initWithMap:map hp:8 speed:0.1 size:0.9 color:[UIColor colorWithRed:200 green:200 blue:0 alpha:1] price:10];
+    return self;
+}
+
+- (id) initFastCreepInMap:(Map*)map {
+    self = [[Creep alloc] initWithMap:map hp:2 speed:0.4 size:0.7 color:[UIColor colorWithRed:255 green:255 blue:50 alpha:1] price:10];
     return self;
 }
 

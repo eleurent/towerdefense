@@ -13,7 +13,7 @@
 @interface Creep : NSObject
 @property (strong, nonatomic) Map *map;
 @property (strong, nonatomic)  Path *currentPath;
-@property (assign, nonatomic) UIColor *color;
+@property (strong, nonatomic) UIColor *color;
 @property (assign, nonatomic) float abscissa;
 @property (assign, nonatomic) int hp;
 @property (assign, nonatomic) float size;
@@ -27,6 +27,8 @@
 - (id) initWithMap:(Map*)map hp:(int)hp speed:(float)speed size:(float)size color:(UIColor*)color price:(int)price;
 - (id) initWithMap:(Map*)map andCreep:(Creep*)creep;
 - (id) initSmallCreepInMap:(Map*)map;
+- (id) initBigCreepInMap:(Map*)map;
+- (id) initFastCreepInMap:(Map*)map;
 - (void) move;
 - (CGPoint) getCoordinates;
 - (CGPoint) getCoordinatesWithOffsetX:(int)x Y:(int)y andZoom:(float)zoom;

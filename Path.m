@@ -48,6 +48,30 @@
     [map.paths addObject:path];
 }
 
++ (void) addPathToMap:(Map*)map inDirection:(int)direction {
+    switch (direction) {
+        case NORTH: {
+            [Path addNorthToMap:map];
+        } break;
+        case EAST: {
+            [Path addEastToMap:map];
+        } break;
+        case SOUTH: {
+            [Path addSouthToMap:map];
+        } break;
+        case WEST: {
+            [Path addWestToMap:map];
+        } break;
+        default:
+            break;
+    }
+}
++ (void) add:(int)n pathsToMap:(Map*)map inDirection:(int)direction {
+    for (int i=0; i<n; i++) {
+        [Path addPathToMap:map inDirection:direction];
+    }
+}
+
 + (void) addNorthToMap:(Map*)map {
     Cell *newCell = [Path nextPositionInMap:map];
     Path *newPath = [[Path alloc] initWithPositionX:newCell.x Y:newCell.y andDirection:NORTH];

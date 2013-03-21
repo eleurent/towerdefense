@@ -29,10 +29,61 @@
 - (void) awakeFromNib {
     [super awakeFromNib];
     self.zoom = 1.0;
-    self.map = [[Map alloc] initWithWidth:40 andHeight:30];
+    self.map = [[Map alloc] initWithWidth:25 andHeight:18];
+    self.menuTowers = [[NSMutableArray alloc] initWithObjects:[[Tower alloc] initStandardWithPositionX:0 Y:0],
+                                                              [[Tower alloc] initHeavyWithPositionX:0 Y:0],
+                                                              nil];
+
 }
 
-- (void)drawMenu
+- (BOOL) menuCellTouchedIn:(CGPoint)point {
+    float radius = self.bounds.size.width / 30;
+    float y = self.bounds.size.height -self.bounds.size.height/12;
+    for (int i=0; i< [self.menuTowers count]; i++) {
+        Tower *t = [self.menuTowers objectAtIndex:i];
+        CGRect rectTower = CGRectMake((i+1)*2.5*radius-radius, y-radius , 2*radius, 2*radius);
+        if ((self.map.money >= t.price) && CGRectContainsPoint(rectTower, point)) {
+            CGPoint position = [self positionFromCoordinates:point];
+            self.createdTower = [[Tower alloc] initFromTower:t withPositionX:position.x Y:position.y];
+            self.selectedTower = self.createdTower;
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void) drawMoneyInContext:(CGContextRef)context {
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSelectFont(context, "Helvetica", 20.0, kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing(context, 1.2);
+    CGContextSetTextDrawingMode(context, kCGTextFill);
+    char money[8];
+    sprintf(money, "%d$", self.map.money);
+    CGContextShowTextAtPoint(context, self.bounds.size.width-5-12*strlen(money), self.bounds.size.height-20, money, strlen(money));
+    CGContextRestoreGState(context);
+
+}
+
+- (void) drawMenuInContext:(CGContextRef)context {
+    CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0.9 green:0.9 blue:0.5 alpha:1] CGColor]);
+    CGContextFillRect(context, CGRectMake(0, self.bounds.size.height-self.bounds.size.height/6, self.bounds.size.width, self.bounds.size.height/6));
+    float radius = self.bounds.size.width / 30;
+    float y = self.bounds.size.height -self.bounds.size.height/12;
+    for (int i=0; i< [self.menuTowers count]; i++) {
+        Tower *t = [self.menuTowers objectAtIndex:i];
+        if (self.map.money < t.price)
+            CGContextSetFillColorWithColor(context, [[t.color colorWithAlphaComponent:0.5] CGColor]);
+        else
+            CGContextSetFillColorWithColor(context, [t.color CGColor]);
+        CGRect rectTower = CGRectMake((i+1)*2.5*radius-radius, y-radius , 2*radius, 2*radius);
+        CGContextFillEllipseInRect(context, rectTower);
+    }
+
+}
 
 - (void)drawRect:(CGRect)rect
 {
@@ -48,9 +99,13 @@
     for (Tower *t in self.map.towers) {
         [self drawTower:t inContext:context];
     }
+    if (self.selectedTower)
+        [self drawTower:self.selectedTower inContext:context];
     for (Bullet *b in self.map.bullets) {
         [self drawBullet:b inContext:context];
     }
+    [self drawMoneyInContext:context];
+    [self drawMenuInContext:context];
 }
 
 - (void) drawGrassInContext:(CGContextRef)context {
@@ -72,7 +127,7 @@
     CGPoint position = [t getCoordinatesWithOffsetX:self.xOffset Y:self.yOffset andZoom:self.zoom];
     
     //FOV
-    if (self.selected == t) {
+    if (self.selectedTower == t) {
         CGContextSetFillColorWithColor(context, [[t.color colorWithAlphaComponent:0.2] CGColor]);
         float fov = [t getFOVWithZoom:self.zoom];
         CGRect rectTower = CGRectMake(position.x - fov, position.y - fov, 2*fov, 2*fov);
@@ -142,15 +197,34 @@
 }
 
 - (void) selectTowerIn:(CGPoint)point {
-    int x = (int)(point.x/(self.zoom*[Cell cellSize]));
-    int y = (int)(point.y/(self.zoom*[Cell cellSize]));
-    self.selected = nil;
+    CGPoint position = [self positionFromCoordinates:point];
+    self.selectedTower = nil;
     for (Tower* t in self.map.towers) {
-        if (t.x == x && t.y == y) {
-            self.selected = t;
+        if (t.x == position.x && t.y == position.y) {
+            self.selectedTower = t;
             break;
         }
     }
+}
+
+- (void) moveCreatedTowerToPosition:(CGPoint)point {
+    CGPoint position = [self positionFromCoordinates:point];
+    self.createdTower.x = position.x;
+    self.createdTower.y = position.y;
+}
+
+- (void) createTower {
+    if ([self.map isEmpty:self.createdTower]) {
+        [self.map.towers addObject:self.createdTower];
+        self.map.money -= self.createdTower.price;
+    }
+    else
+        self.selectedTower = nil;
+    self.createdTower = nil;
+}
+
+- (CGPoint) positionFromCoordinates:(CGPoint)point {
+    return CGPointMake((int)((point.x-self.xOffset)/(self.zoom*[Cell cellSize])), (int)((point.y-self.yOffset)/(self.zoom*[Cell cellSize])));
 }
 
 -(void) timeStep {

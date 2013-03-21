@@ -7,6 +7,7 @@
 //
 
 #import "Map.h"
+#import "Cell.h"
 #import "Tower.h"
 #import "Path.h"
 #import "Creep.h"
@@ -26,15 +27,19 @@
         self.waves = [[NSMutableArray alloc] init];
         self.bullets = [[NSMutableArray alloc] init];
         self.toDelete = [[NSMutableArray alloc] init];
-        
-        for (int i=0; i<40;i++) {
-            Tower *tower = [[Tower alloc] initStandardWithPositionX:rand()%width Y:rand()%height];
-            [self.towers addObject:tower];
-        }
 
         Creep* smallCreep = [[Creep alloc] initSmallCreepInMap:self];
-        Wave *wave = [[Wave alloc] initWith:10 creeps:smallCreep  inDelay:20 andDuration:10 inMap:self];
+        Creep* bigCreep = [[Creep alloc] initBigCreepInMap:self];
+        Creep* fastCreep = [[Creep alloc] initFastCreepInMap:self];
+        Wave *wave = [[Wave alloc] initWith:10 creeps:smallCreep  inDelay:50 andDuration:20 inMap:self];
+        Wave *wave2 = [[Wave alloc] initWith:10 creeps:fastCreep  inDelay:300 andDuration:20 inMap:self];
+        Wave *wave3 = [[Wave alloc] initWith:10 creeps:bigCreep  inDelay:550 andDuration:20 inMap:self];
+        
+        [self.waves addObject:wave3];
+        [self.waves addObject:wave2];
         [self.waves addObject:wave];
+        
+        self.money = 20;
         
         [self buildFirstPath];
     }
@@ -44,23 +49,14 @@
 - (void) buildFirstPath {
     Path *start = [[Path alloc] initWithPositionX:2 Y:0 andDirection:SOUTH];
     [Path addPath:start toMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addSouthToMap:self];
-    [Path addEastToMap:self];
-    [Path addEastToMap:self];
-    [Path addEastToMap:self];
-    [Path addNorthToMap:self];
-    [Path addNorthToMap:self];
-    [Path addEastToMap:self];
-    [Path addEastToMap:self];
-    [Path addEastToMap:self];
+    [Path add:12 pathsToMap:self inDirection:SOUTH];
+    [Path add:5 pathsToMap:self inDirection:EAST];
+    [Path add:10 pathsToMap:self inDirection:NORTH];
+    [Path add:13 pathsToMap:self inDirection:EAST];
+    [Path add:5 pathsToMap:self inDirection:SOUTH];
+    [Path add:8 pathsToMap:self inDirection:WEST];
+    [Path add:5 pathsToMap:self inDirection:SOUTH];
+    [Path add:11 pathsToMap:self inDirection:EAST];
 }
 
 - (void) addCreep:(Creep*)creep {
@@ -93,6 +89,18 @@
             }
         }
     }
+}
+
+- (BOOL) isEmpty:(Cell*)cell {
+    for (Tower* t in self.towers) {
+        if (t.x == cell.x && t.y == cell.y)
+            return NO;
+    }
+    for (Path* p in self.paths) {
+        if (p.x == cell.x && p.y == cell.y)
+            return NO;
+    }
+    return YES;
 }
 
 @end

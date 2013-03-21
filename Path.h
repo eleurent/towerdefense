@@ -21,6 +21,8 @@
 - (id) initWithPositionX:(int)x Y:(int)y andDirection:(int)direction;
 + (Cell*) nextPositionInMap:(Map*)map;
 + (void) addPath:(Path*)path toMap:(Map*)map;
++ (void) addPathToMap:(Map*)map inDirection:(int)direction;
++ (void) add:(int)n pathsToMap:(Map*)map inDirection:(int)direction;
 + (void) addNorthToMap:(Map*)map;
 + (void) addEastToMap:(Map*)map;
 + (void) addSouthToMap:(Map*)map;

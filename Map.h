@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Cell;
 
 @interface Map : NSObject
 @property (strong, nonatomic) NSMutableArray *paths;
@@ -25,4 +26,5 @@
 - (id)initWithWidth:(int)width andHeight:(int)height;
 - (void) buildFirstPath;
 - (void) timeStep;
+- (BOOL) isEmpty:(Cell*)cell;
 @end

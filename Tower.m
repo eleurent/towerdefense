@@ -13,15 +13,51 @@
 - (id) initStandardWithPositionX:(int)x Y:(int)y {
     self = [super initWithPositionX:x Y:y];
     if (self) {
-        self.radius = 0.5;
-        self.fieldOfView = 4.5;
+        self.radius = 0.4;
+        self.fieldOfView = 3.5;
         self.bulletSpeed = 0.2;
-        self.bulletLength = 0.8;
-        self.bulletWidth = 0.3;
+        self.bulletLength = 0.3;
+        self.bulletWidth = 0.2;
         self.damages = 1;
         self.color = [UIColor colorWithRed:0.8 green:0.2 blue:0.1 alpha:1];
-        self.reloadDelay = 10;
+        self.reloadDelay = 20;
         self.bulletColor = [UIColor blackColor];
+        self.price = 10;
+    }
+    return self;
+}
+
+- (id) initHeavyWithPositionX:(int)x Y:(int)y {
+    self = [super initWithPositionX:x Y:y];
+    if (self) {
+        self.radius = 0.5;
+        self.fieldOfView = 2.5;
+        self.bulletSpeed = 0.1;
+        self.bulletLength = 0.5;
+        self.bulletWidth = 0.5;
+        self.damages = 5;
+        self.color = [UIColor colorWithWhite:0.1 alpha:1];
+        self.reloadDelay = 30;
+        self.bulletColor = [UIColor blackColor];
+        self.price = 50;
+        self.areaEffect = YES;
+    }
+    return self;
+}
+
+- (id) initFromTower:(Tower*)t withPositionX:(int)x Y:(int)y {
+    self = [super initWithPositionX:x Y:y];
+    if (self) {
+        self.radius = t.radius;
+        self.fieldOfView = t.fieldOfView;
+        self.bulletSpeed = t.bulletSpeed;
+        self.bulletLength = t.bulletLength;
+        self.bulletWidth = t.bulletWidth;
+        self.damages = t.damages;
+        self.color = t.color;
+        self.reloadDelay = t.reloadDelay;
+        self.bulletColor = t.bulletColor;
+        self.price = t.price;
     }
     return self;
 }
@@ -78,7 +114,7 @@
         CGPoint directionBullet = [Tower differenceBetween:[self getCoordinates] and:[self.target getCoordinates]];
         Bullet* bullet = [[Bullet alloc] initWithPosition:[self getCoordinates] direction:directionBullet length:self.bulletLength width:self.bulletWidth speed:self.bulletSpeed damages:self.damages effect:self.effect area:self.areaEffect color:self.bulletColor];
         [bullets addObject:bullet];
-        self.reloadTime = self.reloadDelay;;
+        self.reloadTime = self.reloadDelay;
     }
 }
 @end
