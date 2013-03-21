@@ -16,6 +16,5 @@
 @property (strong, nonatomic) NSMutableArray *times;
 
 - (id) initWith:(int)number creeps:(Creep*)creep inDelay:(int)delay andDuration:(int)duration inMap:(Map*)map;
-- (void) fillCreepsWith:(int)number creeps:(Creep*)creep inMap:(Map*)map;
-- (void) fillTimesWithDelay:(int)delay andDuration:(int)duration;
+- (Creep*) spawnCreep;
 @end

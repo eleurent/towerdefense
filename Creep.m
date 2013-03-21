@@ -39,33 +39,35 @@
     else {
         self.abscissa += self.speed;
     }
-    while (self.abscissa > 1.) {
-        if (self.currentPath.next != nil) {
-            self.currentPath = self.currentPath.next;
-            self.abscissa-=1.;
-        }
+    while (self.abscissa > 1. && self.currentPath.next) {
+        self.currentPath = self.currentPath.next;
+        self.abscissa-=1.;
     }
 }
 
-- (CGPoint) getCoordinatesinMap:(Map*)map withOffsetX:(int)x Y:(int)y andZoom:(float)zoom {
-    float xCreep = self.currentPath.x;
-    float yCreep = self.currentPath.y;
+- (CGPoint) getCoordinates {
+    CGPoint position = CGPointMake(self.currentPath.x+0.5, self.currentPath.y+0.5);
     switch (self.currentPath.direction) {
         case NORTH:
-            yCreep -= self.abscissa;
+            position.y -= self.abscissa;
             break;
         case EAST:
-            xCreep += self.abscissa;
+            position.x += self.abscissa;
             break;
         case SOUTH:
-            yCreep += self.abscissa;
+            position.y += self.abscissa;
             break;
         case WEST:
-            xCreep -= self.abscissa;
+            position.x -= self.abscissa;
         default:
             break;
     }
-    return CGPointMake(x+zoom*(xCreep+0.5)*[Cell cellSize], y+zoom*(yCreep+0.5)*[Cell cellSize]);
+    return position;
+}
+
+- (CGPoint) getCoordinatesWithOffsetX:(int)x Y:(int)y andZoom:(float)zoom {
+    CGPoint position = [self getCoordinates];
+    return CGPointMake(x+zoom*position.x*[Cell cellSize], y+zoom*position.y*[Cell cellSize]);
 }
 
 - (float) getSizeWithZoom:(float)zoom {

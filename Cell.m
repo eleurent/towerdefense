@@ -7,6 +7,7 @@
 //
 
 #import "Cell.h"
+#import "tdViewGame.h"
 
 
 static int cellSize=20;
@@ -30,12 +31,13 @@ static int cellSize=20;
     return x >= self.x && x < self.x + cellSize && y >= self.y && y < self.y + cellSize;
 }
 
-- (BOOL) isVisibleInMap:(Map*)map WithOffsetX:(int)x Y:(int)y andZoom:(float)zoom {
-    return x <= self.x*cellSize + cellSize/2 && x + zoom * map.width*cellSize >= self.x*cellSize - cellSize/2
-        && y <= self.y*cellSize + cellSize/2 && y + zoom * map.height*cellSize >= self.y*cellSize - cellSize/2;
+- (BOOL) isVisibleInView:(tdViewGame*)view {
+    CGPoint position = [self getCoordinatesWithOffsetX:view.xOffset Y:view.yOffset andZoom:view.zoom];
+    float size = [self getSizeWithZoom:view.zoom];
+    return position.x + size/2 >= 0 && position.x - size/2 < view.bounds.size.width && position.y + size/2 >= 0 && position.y - size/2 < view.bounds.size.height;
 }
 
-- (CGPoint) getCoordinatesinMap:(Map*)map withOffsetX:(int)x Y:(int)y andZoom:(float)zoom {
+- (CGPoint) getCoordinatesWithOffsetX:(int)x Y:(int)y andZoom:(float)zoom {
     return CGPointMake(x+zoom*(self.x+0.5)*cellSize, y+zoom*(self.y+0.5)*cellSize);
 }
 

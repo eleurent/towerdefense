@@ -28,7 +28,8 @@
 - (id) initWithMap:(Map*)map andCreep:(Creep*)creep;
 - (id) initSmallCreepInMap:(Map*)map;
 - (void) move;
-- (CGPoint) getCoordinatesinMap:(Map*)map withOffsetX:(int)x Y:(int)y andZoom:(float)zoom;
+- (CGPoint) getCoordinates;
+- (CGPoint) getCoordinatesWithOffsetX:(int)x Y:(int)y andZoom:(float)zoom;
 - (float) getSizeWithZoom:(float)zoom;
 - (void) hitByDamages:(int)damages inMap:(Map*)map;
 @end

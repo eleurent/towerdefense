@@ -13,9 +13,6 @@
 
 @end
 
-static CGPoint touchOrigin;
-static CGFloat distanceOrigin;
-
 @implementation tdViewController
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -25,6 +22,7 @@ static CGFloat distanceOrigin;
         case 1: {
             // one finger
             touchOrigin = [[touches anyObject] locationInView:self.view];
+            touchOriginSelection = [[touches anyObject] locationInView:self.view];
         }
         break;
         case 2: {
@@ -50,6 +48,14 @@ static CGFloat distanceOrigin;
         } break;
     }
     [self.view setNeedsDisplay];
+}
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    CGPoint touchEnd = [[touches anyObject] locationInView:self.view];
+    if ([self distanceBetweenTwoPoints:touchOriginSelection toPoint:touchEnd] < 5) {
+        tdViewGame *view = (tdViewGame*)self.view;
+        [view selectTowerIn:touchOriginSelection];
+    }
 }
 
 - (void) moveView:(tdViewGame*)view fromTouches:(NSSet*)allTouches {
@@ -80,6 +86,9 @@ static CGFloat distanceOrigin;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    tdViewGame* viewGame = (tdViewGame*) self.view;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:viewGame
+                                            selector:@selector(timeStep) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning

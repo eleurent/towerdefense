@@ -11,8 +11,13 @@
 @implementation Wave
 - (id) initWith:(int)number creeps:(Creep*)creep inDelay:(int)delay andDuration:(int)duration inMap:(Map*)map {
     self = [[Wave alloc] init];
-    [self fillCreepsWith:number creeps:creep inMap:map];
-    [self fillTimesWithDelay:delay andDuration:duration];
+    if(self) {
+        self.creeps = [[NSMutableArray alloc] init];
+        self.times = [[NSMutableArray alloc] init];
+        [self fillCreepsWith:number creeps:creep inMap:map];
+        [self fillTimesWithDelay:delay andDuration:duration];
+    }
+    NSLog(@"wave init");
     return self;
 }
 
@@ -24,8 +29,16 @@
 
 - (void) fillTimesWithDelay:(int)delay andDuration:(int)duration {
     [self.times removeAllObjects];
-    for (int i=0; i<[self.creeps count];i++){
-        [self.times addObject:[[NSNumber alloc] initWithInt:duration+delay*i]];
+    int n = [self.creeps count];
+    for (int i=n-1; i>=0;i--){
+        [self.times addObject:[[NSNumber alloc] initWithInt:duration*i+delay]];
     }
+}
+
+- (Creep*) spawnCreep {
+    Creep *creep = [self.creeps lastObject];
+    [self.creeps removeLastObject];
+    [self.times removeLastObject];
+    return creep;
 }
 @end

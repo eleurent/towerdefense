@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface tdViewController : UIViewController
+@interface tdViewController : UIViewController {
+    CGPoint touchOrigin;
+    CGPoint touchOriginSelection;
+    CGFloat distanceOrigin;
+}
+@property (strong, nonatomic) NSTimer* timer;
 - (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
 @end

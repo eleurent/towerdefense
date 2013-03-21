@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "Map.h"
 
+@class tdViewGame;
+
 @interface Cell : NSObject
 @property (assign, nonatomic) int x;
 @property (assign, nonatomic) int y;
@@ -17,7 +19,7 @@
 - (id) initWithPositionX:(int)x Y:(int)y;
 + (int)cellSize;
 - (BOOL) isInX:(int)x Y:(int)y;
-- (BOOL) isVisibleInMap:(Map*)map WithOffsetX:(int)x Y:(int)y andZoom:(float)zoom;
-- (CGPoint) getCoordinatesinMap:(Map*)map withOffsetX:(int)x Y:(int)y andZoom:(float)zoom;
+- (BOOL) isVisibleInView:(tdViewGame*)view;
+- (CGPoint) getCoordinatesWithOffsetX:(int)x Y:(int)y andZoom:(float)zoom;
 - (float) getSizeWithZoom:(float)zoom;
 @end

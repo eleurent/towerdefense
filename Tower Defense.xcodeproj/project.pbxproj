@@ -18,7 +18,6 @@
 		809595B116F9C8C90065A87A /* tdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 809595A416F9C8C90065A87A /* tdView.xib */; };
 		809595B316F9C8C90065A87A /* tdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 809595A716F9C8C90065A87A /* tdViewController.m */; };
 		809595B416F9C8C90065A87A /* tdViewGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 809595A916F9C8C90065A87A /* tdViewGame.m */; };
-		809595B516F9C8C90065A87A /* Tour.m in Sources */ = {isa = PBXBuildFile; fileRef = 809595AB16F9C8C90065A87A /* Tour.m */; };
 		809595BE16F9C9720065A87A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 809595B716F9C9710065A87A /* Default-568h@2x.png */; };
 		809595BF16F9C9720065A87A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 809595B816F9C9710065A87A /* Default.png */; };
 		809595C016F9C9720065A87A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 809595B916F9C9710065A87A /* Default@2x.png */; };
@@ -27,6 +26,7 @@
 		809595C316F9C9720065A87A /* Tower Defense-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 809595BC16F9C9710065A87A /* Tower Defense-Info.plist */; };
 		809595C616F9CA880065A87A /* Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 809595C516F9CA880065A87A /* Path.m */; };
 		809595C916F9CAB10065A87A /* Wave.m in Sources */ = {isa = PBXBuildFile; fileRef = 809595C816F9CAB10065A87A /* Wave.m */; };
+		80FA6B9B16FA09220040C404 /* Bullet.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FA6B9A16FA09220040C404 /* Bullet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,8 +49,6 @@
 		809595A716F9C8C90065A87A /* tdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tdViewController.m; sourceTree = SOURCE_ROOT; };
 		809595A816F9C8C90065A87A /* tdViewGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tdViewGame.h; sourceTree = SOURCE_ROOT; };
 		809595A916F9C8C90065A87A /* tdViewGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tdViewGame.m; sourceTree = SOURCE_ROOT; };
-		809595AA16F9C8C90065A87A /* Tour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tour.h; sourceTree = SOURCE_ROOT; };
-		809595AB16F9C8C90065A87A /* Tour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tour.m; sourceTree = SOURCE_ROOT; };
 		809595B716F9C9710065A87A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		809595B816F9C9710065A87A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		809595B916F9C9710065A87A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -62,6 +60,8 @@
 		809595C516F9CA880065A87A /* Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Path.m; path = ../Path.m; sourceTree = "<group>"; };
 		809595C716F9CAB10065A87A /* Wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wave.h; path = ../Wave.h; sourceTree = "<group>"; };
 		809595C816F9CAB10065A87A /* Wave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Wave.m; path = ../Wave.m; sourceTree = "<group>"; };
+		80FA6B9916FA09220040C404 /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
+		80FA6B9A16FA09220040C404 /* Bullet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bullet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,12 +124,12 @@
 				809595A116F9C8C90065A87A /* Map.m */,
 				809595C416F9CA880065A87A /* Path.h */,
 				809595C516F9CA880065A87A /* Path.m */,
-				809595AA16F9C8C90065A87A /* Tour.h */,
-				809595AB16F9C8C90065A87A /* Tour.m */,
 				805D130816F8778B009A4DBA /* Tower.h */,
 				805D130916F8778B009A4DBA /* Tower.m */,
 				809595C716F9CAB10065A87A /* Wave.h */,
 				809595C816F9CAB10065A87A /* Wave.m */,
+				80FA6B9916FA09220040C404 /* Bullet.h */,
+				80FA6B9A16FA09220040C404 /* Bullet.m */,
 			);
 			path = "Tower Defense";
 			sourceTree = "<group>";
@@ -224,10 +224,10 @@
 				809595B016F9C8C90065A87A /* tdAppDelegate.m in Sources */,
 				809595B316F9C8C90065A87A /* tdViewController.m in Sources */,
 				809595B416F9C8C90065A87A /* tdViewGame.m in Sources */,
-				809595B516F9C8C90065A87A /* Tour.m in Sources */,
 				809595C216F9C9720065A87A /* main.m in Sources */,
 				809595C616F9CA880065A87A /* Path.m in Sources */,
 				809595C916F9CAB10065A87A /* Wave.m in Sources */,
+				80FA6B9B16FA09220040C404 /* Bullet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
