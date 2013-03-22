@@ -154,41 +154,6 @@
         CGContextFillEllipseInRect(context, rectTower);
     }
 }
-
-- (void)drawGameOverInContext:(CGContextRef)context {
-    CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
-    CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
-    
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 0, self.bounds.size.height);
-    CGContextScaleCTM(context, 1, -1);
-    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
-    CGContextSetLineWidth(context, 2.0);
-    CGContextSelectFont(context, "Helvetica", 45.0, kCGEncodingMacRoman);
-    CGContextSetCharacterSpacing(context, 1.2);
-    CGContextSetTextDrawingMode(context, kCGTextFill);
-    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
-    CGContextShowTextAtPoint(context, self.bounds.size.width/2-12*strlen("Game Over"), self.bounds.size.height/2-10, "Game Over", strlen("Game Over"));
-    CGContextRestoreGState(context);
-}
-
-- (void)drawVictoryInContext:(CGContextRef)context {
-    CGContextSetFillColorWithColor(context, [[UIColor blueColor] CGColor]);
-    CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
-    
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 0, self.bounds.size.height);
-    CGContextScaleCTM(context, 1, -1);
-    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
-    CGContextSetLineWidth(context, 2.0);
-    CGContextSelectFont(context, "Helvetica", 45.0, kCGEncodingMacRoman);
-    CGContextSetCharacterSpacing(context, 1.2);
-    CGContextSetTextDrawingMode(context, kCGTextFill);
-    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
-    CGContextShowTextAtPoint(context, self.bounds.size.width/2-11*strlen("Victory !"), self.bounds.size.height/2-10, "Victory !", strlen("Victory !"));
-    CGContextRestoreGState(context);
-}
-
 - (void) drawPath:(Path*)p inContext:(CGContextRef)context {
     if ([p isVisibleInView:self]) {
         CGContextSetFillColorWithColor(context, [[UIColor colorWithWhite:0.65 alpha:1]  CGColor]);
@@ -258,6 +223,43 @@
     CGContextFillRect(context, rectCreep);
     CGContextRestoreGState(context);
 }
+
+
+- (void)drawGameOverInContext:(CGContextRef)context {
+    CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
+    CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+    
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSelectFont(context, "Helvetica", 45.0, kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing(context, 1.2);
+    CGContextSetTextDrawingMode(context, kCGTextFill);
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextShowTextAtPoint(context, self.bounds.size.width/2-12*strlen("Game Over"), self.bounds.size.height/2-10, "Game Over", strlen("Game Over"));
+    CGContextRestoreGState(context);
+}
+
+- (void)drawVictoryInContext:(CGContextRef)context {
+    CGContextSetFillColorWithColor(context, [[UIColor blueColor] CGColor]);
+    CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+    
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSelectFont(context, "Helvetica", 45.0, kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing(context, 1.2);
+    CGContextSetTextDrawingMode(context, kCGTextFill);
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextShowTextAtPoint(context, self.bounds.size.width/2-11*strlen("Victory !"), self.bounds.size.height/2-10, "Victory !", strlen("Victory !"));
+    CGContextRestoreGState(context);
+}
+
+
 
 - (void) allowedMoves {
     if (self.xOffset > 0)

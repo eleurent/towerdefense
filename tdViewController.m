@@ -95,6 +95,17 @@
     distanceOrigin = distance;
 }
 
+- (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint {
+    float x = toPoint.x - fromPoint.x;
+    float y = toPoint.y - fromPoint.y;
+    return sqrt(x * x + y * y);
+}
+
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+}
+
+
 - (IBAction)pause:(id)sender {
     UIButton *btn = (UIButton *)sender;
     tdViewGame* viewGame = (tdViewGame*) self.view;
@@ -113,16 +124,6 @@
     tdViewGame* viewGame = (tdViewGame*) self.view;
     viewGame.selectedTower = nil;
     [viewGame.map restart];
-}
-
-- (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint {
-    float x = toPoint.x - fromPoint.x;
-    float y = toPoint.y - fromPoint.y;
-    return sqrt(x * x + y * y);
-}
-
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
 - (void)viewDidLoad
