@@ -10,7 +10,7 @@
 #import "Map.h"
 #import "Path.h"
 
-#define DELAY_POISON 120
+#define DELAY_POISON 90
 #define DAMAGES_POISON 1
 
 @interface Creep : NSObject
@@ -32,6 +32,9 @@
 - (id) initSmallCreepInMap:(Map*)map;
 - (id) initBigCreepInMap:(Map*)map;
 - (id) initFastCreepInMap:(Map*)map;
+- (id) initToughCreepInMap:(Map*)map;
+- (id) initToughFastCreepInMap:(Map*)map;
+
 - (void) moveInMap:(Map*)map;
 - (CGPoint) getCoordinates;
 - (CGPoint) getCoordinatesWithOffsetX:(int)x Y:(int)y andZoom:(float)zoom;

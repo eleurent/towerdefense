@@ -8,6 +8,7 @@
 
 #import "tdViewController.h"
 #import "tdViewGame.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface tdViewController ()
 
@@ -23,6 +24,7 @@
             // one finger
             touchOrigin = [[touches anyObject] locationInView:self.view];
             touchOriginSelection = [[touches anyObject] locationInView:self.view];
+            
             tdViewGame* viewGame = (tdViewGame*) self.view;
             if ([viewGame menuCellTouchedIn:touchOrigin]) {
                 isCreatingTower = YES;
@@ -41,6 +43,7 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+
     NSSet *allTouches = [event allTouches];
     tdViewGame *view = (tdViewGame*)self.view;
     if (isCreatingTower) {
@@ -92,6 +95,26 @@
     distanceOrigin = distance;
 }
 
+- (IBAction)pause:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    tdViewGame* viewGame = (tdViewGame*) self.view;
+    if( [[btn imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"pause.png"]])
+    {
+        [btn setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [btn setImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
+    }
+    viewGame.map.isPaused = !viewGame.map.isPaused;
+}
+
+- (IBAction)restart:(id)sender {
+    tdViewGame* viewGame = (tdViewGame*) self.view;
+    viewGame.selectedTower = nil;
+    [viewGame.map restart];
+}
+
 - (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint {
     float x = toPoint.x - fromPoint.x;
     float y = toPoint.y - fromPoint.y;
@@ -119,4 +142,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
 @end

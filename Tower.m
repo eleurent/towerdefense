@@ -16,7 +16,7 @@
     if (self) {
         self.radius = 0.4;
         self.fieldOfView = 3.5;
-        self.bulletSpeed = 0.2;
+        self.bulletSpeed = 0.20;
         self.bulletLength = 0.3;
         self.bulletWidth = 0.2;
         self.damages = 2;
@@ -40,7 +40,7 @@
         self.color = [UIColor colorWithWhite:0.1 alpha:1];
         self.reloadDelay = 40;
         self.bulletColor = [UIColor blackColor];
-        self.price = 40;
+        self.price = 50;
         self.areaEffect = YES;
     }
     return self;
@@ -77,7 +77,7 @@
         self.color = [UIColor darkGrayColor];
         self.reloadDelay = 8;
         self.bulletColor = self.color;
-        self.price = 100;
+        self.price = 150;
         self.effect = NORMAL;
         self.bulletUndestroyable = NO;
         self.areaEffect = NO;
@@ -97,7 +97,7 @@
         self.color = [UIColor orangeColor];
         self.reloadDelay = 30;
         self.bulletColor = self.color;
-        self.price = 80;
+        self.price = 90;
         self.effect = NORMAL;
         self.bulletUndestroyable = YES;
         self.areaEffect = NO;
@@ -115,7 +115,7 @@
         self.bulletWidth = 0.2;
         self.damages = 0;
         self.color = [UIColor purpleColor];
-        self.reloadDelay = 30;
+        self.reloadDelay = 22;
         self.bulletColor = self.color;
         self.price = 60;
         self.effect = POISON;

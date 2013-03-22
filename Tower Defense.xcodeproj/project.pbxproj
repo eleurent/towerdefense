@@ -11,6 +11,11 @@
 		805D12DC16F86E8F009A4DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805D12DB16F86E8F009A4DBA /* Foundation.framework */; };
 		805D12DE16F86E8F009A4DBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805D12DD16F86E8F009A4DBA /* CoreGraphics.framework */; };
 		805D130A16F8778B009A4DBA /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 805D130916F8778B009A4DBA /* Tower.m */; };
+		809143FB16FC44130054AF20 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 809143FA16FC44130054AF20 /* pause.png */; };
+		809143FE16FC4EB80054AF20 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 809143FC16FC4EB80054AF20 /* play.png */; };
+		809143FF16FC4EB80054AF20 /* reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 809143FD16FC4EB80054AF20 /* reload.png */; };
+		8091440116FC5EA50054AF20 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 8091440016FC5EA40054AF20 /* heart.png */; };
+		8091440516FC6B2B0054AF20 /* creep.png in Resources */ = {isa = PBXBuildFile; fileRef = 8091440416FC6B2B0054AF20 /* creep.png */; };
 		8093178616FBBAD600BECBD1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8093178516FBBAD600BECBD1 /* AVFoundation.framework */; };
 		809317C916FBDE8400BECBD1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 809317C716FBDE8400BECBD1 /* Icon.png */; };
 		809317CA16FBDE8400BECBD1 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 809317C816FBDE8400BECBD1 /* Icon@2x.png */; };
@@ -39,6 +44,11 @@
 		805D12DD16F86E8F009A4DBA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		805D130816F8778B009A4DBA /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tower.h; path = ../Tower.h; sourceTree = "<group>"; };
 		805D130916F8778B009A4DBA /* Tower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tower.m; path = ../Tower.m; sourceTree = "<group>"; };
+		809143FA16FC44130054AF20 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = SOURCE_ROOT; };
+		809143FC16FC4EB80054AF20 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = SOURCE_ROOT; };
+		809143FD16FC4EB80054AF20 /* reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reload.png; sourceTree = SOURCE_ROOT; };
+		8091440016FC5EA40054AF20 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = SOURCE_ROOT; };
+		8091440416FC6B2B0054AF20 /* creep.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = creep.png; sourceTree = "<group>"; };
 		8093178516FBBAD600BECBD1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		809317C716FBDE8400BECBD1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		809317C816FBDE8400BECBD1 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -88,6 +98,7 @@
 		805D12CD16F86E8F009A4DBA = {
 			isa = PBXGroup;
 			children = (
+				8091440416FC6B2B0054AF20 /* creep.png */,
 				809317C716FBDE8400BECBD1 /* Icon.png */,
 				809317C816FBDE8400BECBD1 /* Icon@2x.png */,
 				8093178516FBBAD600BECBD1 /* AVFoundation.framework */,
@@ -121,10 +132,14 @@
 				809595A216F9C8C90065A87A /* tdAppDelegate.h */,
 				809595A316F9C8C90065A87A /* tdAppDelegate.m */,
 				809595A416F9C8C90065A87A /* tdView.xib */,
+				809143FC16FC4EB80054AF20 /* play.png */,
+				809143FD16FC4EB80054AF20 /* reload.png */,
+				809143FA16FC44130054AF20 /* pause.png */,
 				809595A616F9C8C90065A87A /* tdViewController.h */,
 				809595A716F9C8C90065A87A /* tdViewController.m */,
 				809595A816F9C8C90065A87A /* tdViewGame.h */,
 				809595A916F9C8C90065A87A /* tdViewGame.m */,
+				8091440016FC5EA40054AF20 /* heart.png */,
 				809595B616F9C9710065A87A /* Supporting Files */,
 				8095959B16F9C8C90065A87A /* Cell.h */,
 				8095959C16F9C8C90065A87A /* Cell.m */,
@@ -219,6 +234,11 @@
 				809595C316F9C9720065A87A /* Tower Defense-Info.plist in Resources */,
 				809317C916FBDE8400BECBD1 /* Icon.png in Resources */,
 				809317CA16FBDE8400BECBD1 /* Icon@2x.png in Resources */,
+				809143FB16FC44130054AF20 /* pause.png in Resources */,
+				809143FE16FC4EB80054AF20 /* play.png in Resources */,
+				809143FF16FC4EB80054AF20 /* reload.png in Resources */,
+				8091440116FC5EA50054AF20 /* heart.png in Resources */,
+				8091440516FC6B2B0054AF20 /* creep.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

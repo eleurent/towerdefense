@@ -56,6 +56,36 @@
     return NO;
 }
 
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    for (Path *p in self.map.paths) {
+        [self drawPath:p inContext:context];
+    }
+    for (Creep *c in self.map.creeps) {
+        [self drawCreep:c inContext:context];
+    }
+    for (Tower *t in self.map.towers) {
+        [self drawTower:t inContext:context];
+    }
+    if (self.selectedTower)
+        [self drawTower:self.selectedTower inContext:context];
+    for (Bullet *b in self.map.bullets) {
+        [self drawBullet:b inContext:context];
+    }
+    [self drawMoneyAndLivesInContext:context];
+    [self drawWavesInContext:context];
+    [self drawMenuInContext:context];
+    [self drawSellInContext:context];
+    if (([self.map.waves count] == 0) && ([self.map.creeps count] == 0)) {
+        [self drawVictoryInContext:context];
+    }
+    if (self.map.lives <= 0) {
+        [self drawGameOverInContext:context];
+    }
+}
+
 - (void) drawMoneyAndLivesInContext:(CGContextRef)context {
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, 0, self.bounds.size.height);
@@ -67,10 +97,31 @@
     CGContextSetTextDrawingMode(context, kCGTextFill);
     char money[8];
     sprintf(money, "%d$", self.map.money);
-    CGContextShowTextAtPoint(context, self.bounds.size.width-5-12*strlen(money), self.bounds.size.height-20, money, strlen(money));
+    CGContextShowTextAtPoint(context, self.bounds.size.width-8-12*strlen(money), self.bounds.size.height-60, money, strlen(money));
     char lives[8];
     sprintf(lives, "%d", self.map.lives);
-    CGContextShowTextAtPoint(context, self.bounds.size.width-5-12*strlen(money), self.bounds.size.height-40, lives, strlen(lives));
+    CGContextShowTextAtPoint(context, self.bounds.size.width-24-12*strlen(lives), self.bounds.size.height-89, lives, strlen(lives));
+    UIImage *heart = [UIImage imageNamed:@"heart.png"];
+    CGRect heartRect = CGRectMake(self.bounds.size.width-23, self.bounds.size.height-90, 16, 16);
+    CGContextDrawImage(context, heartRect, [heart CGImage]);
+    CGContextRestoreGState(context);
+}
+
+- (void) drawWavesInContext:(CGContextRef)context {
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSelectFont(context, "Helvetica", 20.0, kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing(context, 1.2);
+    CGContextSetTextDrawingMode(context, kCGTextFill);
+    char waves[8];
+    sprintf(waves, "%d", [self.map.waves count]);
+    CGContextShowTextAtPoint(context, 30, self.bounds.size.height-30, waves, strlen(waves));
+    UIImage *creep = [UIImage imageNamed:@"creep.png"];
+    CGRect creepRect = CGRectMake(30+12*strlen(waves), self.bounds.size.height-34, 20, 20);
+    CGContextDrawImage(context, creepRect, [creep CGImage]);
     CGContextRestoreGState(context);
 }
 
@@ -104,34 +155,38 @@
     }
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    [self drawGrassInContext:context];
-    for (Path *p in self.map.paths) {
-        [self drawPath:p inContext:context];
-    }
-    for (Creep *c in self.map.creeps) {
-        [self drawCreep:c inContext:context];
-    }
-    for (Tower *t in self.map.towers) {
-        [self drawTower:t inContext:context];
-    }
-    if (self.selectedTower)
-        [self drawTower:self.selectedTower inContext:context];
-    for (Bullet *b in self.map.bullets) {
-        [self drawBullet:b inContext:context];
-    }
-    [self drawMoneyAndLivesInContext:context];
-    [self drawMenuInContext:context];
-    [self drawSellInContext:context];
-
+- (void)drawGameOverInContext:(CGContextRef)context {
+    CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
+    CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+    
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSelectFont(context, "Helvetica", 45.0, kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing(context, 1.2);
+    CGContextSetTextDrawingMode(context, kCGTextFill);
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextShowTextAtPoint(context, self.bounds.size.width/2-12*strlen("Game Over"), self.bounds.size.height/2-10, "Game Over", strlen("Game Over"));
+    CGContextRestoreGState(context);
 }
 
-- (void) drawGrassInContext:(CGContextRef)context {
-    CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0.6 green:1 blue:0.3 alpha:1] CGColor]);
+- (void)drawVictoryInContext:(CGContextRef)context {
+    CGContextSetFillColorWithColor(context, [[UIColor blueColor] CGColor]);
     CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+    
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSelectFont(context, "Helvetica", 45.0, kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing(context, 1.2);
+    CGContextSetTextDrawingMode(context, kCGTextFill);
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextShowTextAtPoint(context, self.bounds.size.width/2-11*strlen("Victory !"), self.bounds.size.height/2-10, "Victory !", strlen("Victory !"));
+    CGContextRestoreGState(context);
 }
 
 - (void) drawPath:(Path*)p inContext:(CGContextRef)context {

@@ -27,29 +27,12 @@
         self.waves = [[NSMutableArray alloc] init];
         self.bullets = [[NSMutableArray alloc] init];
         self.toDelete = [[NSMutableArray alloc] init];
-
-               
-        /*
-        Wave *wave = [[Wave alloc] initWith:10 creeps:smallCreep  inDelay:50 andDuration:30 inMap:self];
-        Wave *wave2 = [[Wave alloc] initWith:15 creeps:smallCreep  inDelay:50 andDuration:20 inMap:self];
-        Wave *wave3 = [[Wave alloc] initWith:5 creeps:fastCreep  inDelay:100 andDuration:20 inMap:self];
-        Wave *wave4 = [[Wave alloc] initWith:10 creeps:bigCreep  inDelay:50 andDuration:20 inMap:self];
-        Wave *wave5 = [[Wave alloc] initWith:20 creeps:smallCreep  inDelay:50 andDuration:20 inMap:self];
-        Wave *wave6 = [[Wave alloc] initWith:10 creeps:bigCreep  inDelay:50 andDuration:5 inMap:self];
-
-
-        [self.waves addObject:wave6];
-        [self.waves addObject:wave5];
-        [self.waves addObject:wave4];
-        [self.waves addObject:wave3];
-        [self.waves addObject:wave2];
-        [self.waves addObject:wave];*/
-        [self buildWaves];
         
         self.money = 30;
         self.lives = 5;
         
         [self buildFirstPath];
+        [self buildWaves];
     }
     return self;
 }
@@ -58,15 +41,44 @@
     Creep* smallCreep = [[Creep alloc] initSmallCreepInMap:self];
     Creep* bigCreep = [[Creep alloc] initBigCreepInMap:self];
     Creep* fastCreep = [[Creep alloc] initFastCreepInMap:self];
+    Creep* toughCreep = [[Creep alloc] initToughCreepInMap:self];
+    Creep* toughFastCreep = [[Creep alloc] initToughFastCreepInMap:self];
+
+    
     srandom(time(NULL));
     Wave *wave = nil;
     Creep *creep = nil;
     
+    for (int i=0; i<7; i++) {
+        int ncreep = random()%100;
+        if (ncreep <25)
+            creep = toughFastCreep;
+        else if (ncreep < 60)
+            creep = fastCreep;
+        else
+            creep = toughCreep;
+        wave = [[Wave alloc] initWith:random()%10+5 creeps:creep  inDelay:random()%50+50 andDuration:random()%20+20 inMap:self];
+        [self.waves addObject:wave];
+    }
+    
+    for (int i=0; i<6; i++) {
+        int ncreep = random()%100;
+        if (ncreep<10)
+            creep = toughCreep;
+        else if (ncreep <50)
+            creep = bigCreep;
+        else
+            creep = fastCreep;
+        
+        wave = [[Wave alloc] initWith:random()%10+5 creeps:creep  inDelay:random()%50+50 andDuration:random()%20+20 inMap:self];
+        [self.waves addObject:wave];
+    }
+    
     for (int i=0; i<5; i++) {
         int ncreep = random()%10;
-        if (ncreep<2)
+        if (ncreep<4)
             creep = smallCreep;
-        else if (ncreep <6)
+        else if (ncreep <7)
             creep = bigCreep;
         else
             creep = fastCreep;
@@ -74,18 +86,10 @@
         [self.waves addObject:wave];
     }
     
-    for (int i=0; i<5; i++) {
-        int ncreep = random()%10;
-        if (ncreep<5)
-            creep = smallCreep;
-        else if (ncreep <8)
-            creep = bigCreep;
-        else
-            creep = fastCreep;
-        wave = [[Wave alloc] initWith:random()%10+5 creeps:creep  inDelay:random()%50+50 andDuration:random()%20+20 inMap:self];
-        [self.waves addObject:wave];
-    }
-    wave = [[Wave alloc] initWith:random()%10+5 creeps:smallCreep  inDelay:random()%50+50 andDuration:20 inMap:self];
+    
+    wave = [[Wave alloc] initWith:10 creeps:smallCreep  inDelay:random()%50+50 andDuration:10 inMap:self];
+    [self.waves addObject:wave];
+    wave = [[Wave alloc] initWith:10 creeps:smallCreep  inDelay:random()%50+50 andDuration:20 inMap:self];
     [self.waves addObject:wave];
     
 }
@@ -108,7 +112,22 @@
     [self.creeps addObject:creep];
 }
 
+- (void) restart {
+    [self.towers removeAllObjects];
+    [self.creeps removeAllObjects];
+    [self.waves removeAllObjects];
+    [self.bullets removeAllObjects];
+    
+    self.money = 30;
+    self.lives = 5;
+    self.clock = 0;
+    [self buildWaves];
+}
+
 - (void) timeStep {
+    if (self.isPaused) {
+        return;
+    }
     self.clock++;
     for (Creep *c in self.creeps) {
         [c moveInMap:self];

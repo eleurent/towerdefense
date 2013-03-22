@@ -23,9 +23,11 @@
 @property (assign, nonatomic) int money;
 @property (assign, nonatomic) int clock;
 @property (assign, nonatomic) int lives;
+@property (assign, nonatomic) BOOL isPaused;
 
 - (id)initWithWidth:(int)width andHeight:(int)height;
 - (void) buildFirstPath;
+- (void) restart;
 - (void) timeStep;
 - (BOOL) isEmpty:(Cell*)cell;
 @end

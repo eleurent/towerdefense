@@ -15,5 +15,7 @@
     BOOL isCreatingTower;
 }
 @property (strong, nonatomic) NSTimer* timer;
+- (IBAction)pause:(id)sender;
+- (IBAction)restart:(id)sender;
 - (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
 @end
