@@ -11,6 +11,9 @@
 		805D12DC16F86E8F009A4DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805D12DB16F86E8F009A4DBA /* Foundation.framework */; };
 		805D12DE16F86E8F009A4DBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805D12DD16F86E8F009A4DBA /* CoreGraphics.framework */; };
 		805D130A16F8778B009A4DBA /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 805D130916F8778B009A4DBA /* Tower.m */; };
+		8093178616FBBAD600BECBD1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8093178516FBBAD600BECBD1 /* AVFoundation.framework */; };
+		809317C916FBDE8400BECBD1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 809317C716FBDE8400BECBD1 /* Icon.png */; };
+		809317CA16FBDE8400BECBD1 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 809317C816FBDE8400BECBD1 /* Icon@2x.png */; };
 		809595AC16F9C8C90065A87A /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095959C16F9C8C90065A87A /* Cell.m */; };
 		809595AD16F9C8C90065A87A /* Creep.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095959E16F9C8C90065A87A /* Creep.m */; };
 		809595AF16F9C8C90065A87A /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 809595A116F9C8C90065A87A /* Map.m */; };
@@ -30,12 +33,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		805D12D616F86E8F009A4DBA /* Tower Defense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tower Defense.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		805D12D616F86E8F009A4DBA /* Dots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		805D12D916F86E8F009A4DBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		805D12DB16F86E8F009A4DBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		805D12DD16F86E8F009A4DBA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		805D130816F8778B009A4DBA /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tower.h; path = ../Tower.h; sourceTree = "<group>"; };
 		805D130916F8778B009A4DBA /* Tower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tower.m; path = ../Tower.m; sourceTree = "<group>"; };
+		8093178516FBBAD600BECBD1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		809317C716FBDE8400BECBD1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		809317C816FBDE8400BECBD1 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		8095959B16F9C8C90065A87A /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = SOURCE_ROOT; };
 		8095959C16F9C8C90065A87A /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = SOURCE_ROOT; };
 		8095959D16F9C8C90065A87A /* Creep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Creep.h; sourceTree = SOURCE_ROOT; };
@@ -69,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8093178616FBBAD600BECBD1 /* AVFoundation.framework in Frameworks */,
 				805D12DA16F86E8F009A4DBA /* UIKit.framework in Frameworks */,
 				805D12DC16F86E8F009A4DBA /* Foundation.framework in Frameworks */,
 				805D12DE16F86E8F009A4DBA /* CoreGraphics.framework in Frameworks */,
@@ -81,6 +88,9 @@
 		805D12CD16F86E8F009A4DBA = {
 			isa = PBXGroup;
 			children = (
+				809317C716FBDE8400BECBD1 /* Icon.png */,
+				809317C816FBDE8400BECBD1 /* Icon@2x.png */,
+				8093178516FBBAD600BECBD1 /* AVFoundation.framework */,
 				805D12DF16F86E8F009A4DBA /* Tower Defense */,
 				805D12D816F86E8F009A4DBA /* Frameworks */,
 				805D12D716F86E8F009A4DBA /* Products */,
@@ -90,7 +100,7 @@
 		805D12D716F86E8F009A4DBA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				805D12D616F86E8F009A4DBA /* Tower Defense.app */,
+				805D12D616F86E8F009A4DBA /* Dots.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,7 +176,7 @@
 			);
 			name = "Tower Defense";
 			productName = "Tower Defense";
-			productReference = 805D12D616F86E8F009A4DBA /* Tower Defense.app */;
+			productReference = 805D12D616F86E8F009A4DBA /* Dots.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -207,6 +217,8 @@
 				809595C016F9C9720065A87A /* Default@2x.png in Resources */,
 				809595C116F9C9720065A87A /* InfoPlist.strings in Resources */,
 				809595C316F9C9720065A87A /* Tower Defense-Info.plist in Resources */,
+				809317C916FBDE8400BECBD1 /* Icon.png in Resources */,
+				809317CA16FBDE8400BECBD1 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +310,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tower Defense/Tower Defense-Prefix.pch";
 				INFOPLIST_FILE = "Tower Defense/Tower Defense-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Dots;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -309,7 +321,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tower Defense/Tower Defense-Prefix.pch";
 				INFOPLIST_FILE = "Tower Defense/Tower Defense-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Dots;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

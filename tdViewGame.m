@@ -29,9 +29,13 @@
 - (void) awakeFromNib {
     [super awakeFromNib];
     self.zoom = 1.0;
-    self.map = [[Map alloc] initWithWidth:25 andHeight:18];
+    self.map = [[Map alloc] initWithWidth:24 andHeight:18];
     self.menuTowers = [[NSMutableArray alloc] initWithObjects:[[Tower alloc] initStandardWithPositionX:0 Y:0],
+                                                              [[Tower alloc] initFreezeWithPositionX:0 Y:0],
                                                               [[Tower alloc] initHeavyWithPositionX:0 Y:0],
+                                                              [[Tower alloc] initPoisonWithPositionX:0 Y:0],
+                                                              [[Tower alloc] initFastWithPositionX:0 Y:0],
+                                                              [[Tower alloc] initLaserWithPositionX:0 Y:0],
                                                               nil];
 
 }
@@ -52,7 +56,7 @@
     return NO;
 }
 
-- (void) drawMoneyInContext:(CGContextRef)context {
+- (void) drawMoneyAndLivesInContext:(CGContextRef)context {
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, 0, self.bounds.size.height);
     CGContextScaleCTM(context, 1, -1);
@@ -64,8 +68,24 @@
     char money[8];
     sprintf(money, "%d$", self.map.money);
     CGContextShowTextAtPoint(context, self.bounds.size.width-5-12*strlen(money), self.bounds.size.height-20, money, strlen(money));
+    char lives[8];
+    sprintf(lives, "%d", self.map.lives);
+    CGContextShowTextAtPoint(context, self.bounds.size.width-5-12*strlen(money), self.bounds.size.height-40, lives, strlen(lives));
     CGContextRestoreGState(context);
+}
 
+- (void) drawSellInContext:(CGContextRef)context {
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSelectFont(context, "Helvetica", 45.0, kCGEncodingMacRoman);
+    CGContextSetCharacterSpacing(context, 1.2);
+    CGContextSetTextDrawingMode(context, kCGTextFill);
+    CGContextSetFillColorWithColor(context, [[UIColor darkGrayColor] CGColor]);
+    CGContextShowTextAtPoint(context, self.bounds.size.width-35, 10, "$", strlen("$"));
+    CGContextRestoreGState(context);
 }
 
 - (void) drawMenuInContext:(CGContextRef)context {
@@ -76,13 +96,12 @@
     for (int i=0; i< [self.menuTowers count]; i++) {
         Tower *t = [self.menuTowers objectAtIndex:i];
         if (self.map.money < t.price)
-            CGContextSetFillColorWithColor(context, [[t.color colorWithAlphaComponent:0.5] CGColor]);
+            CGContextSetFillColorWithColor(context, [[t.color colorWithAlphaComponent:0.3] CGColor]);
         else
             CGContextSetFillColorWithColor(context, [t.color CGColor]);
         CGRect rectTower = CGRectMake((i+1)*2.5*radius-radius, y-radius , 2*radius, 2*radius);
         CGContextFillEllipseInRect(context, rectTower);
     }
-
 }
 
 - (void)drawRect:(CGRect)rect
@@ -104,8 +123,10 @@
     for (Bullet *b in self.map.bullets) {
         [self drawBullet:b inContext:context];
     }
-    [self drawMoneyInContext:context];
+    [self drawMoneyAndLivesInContext:context];
     [self drawMenuInContext:context];
+    [self drawSellInContext:context];
+
 }
 
 - (void) drawGrassInContext:(CGContextRef)context {
@@ -130,24 +151,41 @@
     if (self.selectedTower == t) {
         CGContextSetFillColorWithColor(context, [[t.color colorWithAlphaComponent:0.2] CGColor]);
         float fov = [t getFOVWithZoom:self.zoom];
-        CGRect rectTower = CGRectMake(position.x - fov, position.y - fov, 2*fov, 2*fov);
-        CGContextFillEllipseInRect(context, rectTower);
+        CGRect rectFOV = CGRectMake(position.x - fov, position.y - fov, 2*fov, 2*fov);
+        CGContextFillEllipseInRect(context, rectFOV);
     }
     //Tower
     if ([t isVisibleInView:self]) {
-        CGContextSetFillColorWithColor(context, [t.color CGColor]);
+        //Normal
         float radius = [t getRadiusWithZoom:self.zoom];
         CGRect rectTower = CGRectMake(position.x - radius, position.y - radius, 2*radius, 2*radius);
+        CGContextSetFillColorWithColor(context, [t.color CGColor]);
         CGContextFillEllipseInRect(context, rectTower);
     }
 }
 
 - (void) drawCreep:(Creep*)c inContext:(CGContextRef)context {
+    //Creep
     CGContextSetFillColorWithColor(context, [c.color CGColor]);
     CGPoint position = [c getCoordinatesWithOffsetX:self.xOffset Y:self.yOffset andZoom:self.zoom];
     float size = [c getSizeWithZoom:self.zoom];
     CGRect rectCreep = CGRectMake(position.x - size/2, position.y - size/2, size, size);
     CGContextFillEllipseInRect(context, rectCreep);
+    
+    //Freeze
+    if (c.isFrozen) {
+        CGContextSetFillColorWithColor(context, [[[UIColor cyanColor] colorWithAlphaComponent:0.6] CGColor]);
+        CGContextFillEllipseInRect(context, rectCreep);
+    }
+
+    //Poison
+    if (c.isPoisonned) {
+        CGContextSetFillColorWithColor(context, [[[UIColor purpleColor] colorWithAlphaComponent:0.6] CGColor]);
+        CGContextFillEllipseInRect(context, rectCreep);
+    }
+
+
+    
 }
 
 - (void) drawBullet:(Bullet*)b inContext:(CGContextRef)context {
@@ -194,6 +232,19 @@
     self.yOffset = zoom2/zoom1*(self.yOffset-point.y) + point.y;
     self.zoom = zoom2;
     [self allowedMoves];
+}
+
+- (void) sellTowerIn:(CGPoint)point {
+    if (self.selectedTower) {
+        float radius = self.bounds.size.width / 30;
+        float y = self.bounds.size.height -self.bounds.size.height/12;
+        CGRect rectSell = CGRectMake(self.bounds.size.width-2*radius, y-radius , 2*radius, 2*radius);
+        if (CGRectContainsPoint(rectSell, point)) {
+            self.map.money += 0.7*self.selectedTower.price;
+            [self.map.towers removeObject:self.selectedTower];
+            self.selectedTower = nil;
+        }
+    }
 }
 
 - (void) selectTowerIn:(CGPoint)point {

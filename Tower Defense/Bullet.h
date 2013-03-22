@@ -11,13 +11,11 @@
 #import "Map.h"
 
 #define NORMAL 0
-#define GLACE 1
+#define FREEZE 1
 #define POISON 2
-#define DISTANCE_ZONE 1
-#define DUREE_GEL = 100
-#define DUREE_POISON = 200
-#define DELAI_POISON = 30
-#define DEGATS_POISON = 1
+#define DISTANCE_AREA 1
+#define DURATION_FREEZE 100
+#define DURATION_POISON 500
 
 @interface Bullet : NSObject
 {
@@ -31,10 +29,11 @@
 @property (assign, nonatomic) int damages;
 @property (assign, nonatomic) int effect;
 @property (assign, nonatomic) BOOL area;
+@property (assign, nonatomic) BOOL undestroyable;
 @property (strong, nonatomic) UIColor* color;
 
-- (id) initWithPosition:(CGPoint)pos direction:(CGPoint)dir length:(float)length width:(float)width speed:(float)speed damages:(int)damages effect:(int)effect area:(BOOL)area color:(UIColor*)color;
-- (void) move;
+- (id) initWithPosition:(CGPoint)pos direction:(CGPoint)dir length:(float)length width:(float)width speed:(float)speed damages:(int)damages effect:(int)effect area:(BOOL)area color:(UIColor*)color undestroyable:(BOOL)undestroyable;
+- (void) moveInMap:(Map*)map;
 - (CGPoint) position;
 - (CGPoint) direction;
 - (BOOL) isCollidingCreep:(Creep*)creep;

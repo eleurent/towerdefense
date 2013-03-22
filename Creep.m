@@ -28,30 +28,51 @@
 }
 
 - (id) initSmallCreepInMap:(Map*)map {
-    self = [[Creep alloc] initWithMap:map hp:3 speed:0.2 size:0.7 color:[UIColor yellowColor] price:10];
+    self = [[Creep alloc] initWithMap:map hp:5 speed:0.1 size:0.7 color:[UIColor yellowColor] price:10];
     return self;
 }
 
 - (id) initBigCreepInMap:(Map*)map {
-    self = [[Creep alloc] initWithMap:map hp:8 speed:0.1 size:0.9 color:[UIColor colorWithRed:200 green:200 blue:0 alpha:1] price:10];
+    self = [[Creep alloc] initWithMap:map hp:15 speed:0.1 size:0.9 color:[UIColor colorWithRed:200 green:200 blue:0 alpha:1] price:10];
     return self;
 }
 
 - (id) initFastCreepInMap:(Map*)map {
-    self = [[Creep alloc] initWithMap:map hp:2 speed:0.4 size:0.7 color:[UIColor colorWithRed:255 green:255 blue:50 alpha:1] price:10];
+    self = [[Creep alloc] initWithMap:map hp:3 speed:0.3 size:0.7 color:[UIColor colorWithRed:255 green:255 blue:50 alpha:1] price:10];
     return self;
 }
 
-- (void) move {
-    if (self.freeze) {
-        self.abscissa += self.speed/3;
+- (void) moveInMap:(Map*)map {
+    if (self.isFrozen) {
+        self.abscissa += self.speed/5;
     }
     else {
         self.abscissa += self.speed;
     }
-    while (self.abscissa > 1. && self.currentPath.next) {
+    while (self.abscissa > 1.) {
+        if (!self.currentPath.next) {
+            map.lives--;
+            [self destroyInMap:map];
+            break;
+        }
         self.currentPath = self.currentPath.next;
         self.abscissa-=1.;
+    }
+}
+
+- (void) timeoutEffects {
+    if (self.isFrozen) {
+        self.freezeDuration--;
+    }
+    if (self.freezeDuration <= 0) {
+        self.isFrozen = NO;
+    }
+    
+    if (self.isPoisonned) {
+        self.poisonDuration--;
+    }
+    if (self.poisonDuration <= 0) {
+        self.isPoisonned = NO;
     }
 }
 
@@ -84,15 +105,26 @@
     return zoom*self.size*[Cell cellSize];
 }
 
+- (void) undergoPoisonInMap:(Map*)map {
+    if (self.isPoisonned && (self.poisonDuration % DELAY_POISON == 0)) {
+        [self hitByDamages:DAMAGES_POISON inMap:map];
+    }
+}
+
 - (void) hitByDamages:(int)damages inMap:(Map*)map {
     self.hp -= damages;
-    if (self.hp <= 0)
+    if (self.hp <= 0) {
+        map.money += self.price;
         [self destroyInMap:map];
+    }
 }
 
 - (void) destroyInMap:(Map*)map {
-    map.money += self.price;
-    [map.creeps removeObject:self];
+    [map.toDelete addObject:self];
+}
+
++ (void) destroyCreepsInMap:(Map*)map {
+    [map.creeps removeObjectsInArray:map.toDelete];
 }
 
 @end

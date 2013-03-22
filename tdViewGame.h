@@ -24,6 +24,7 @@
 - (void) zoomBy:(CGFloat)deltaDistance Around:(CGPoint)point;
 - (void) selectTowerIn:(CGPoint)point;
 - (void) moveCreatedTowerToPosition:(CGPoint)point;
+- (void) sellTowerIn:(CGPoint)point;
 - (void) createTower;
 
 @end

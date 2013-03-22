@@ -10,17 +10,21 @@
 #import "Tower.h"
 
 @implementation Bullet
-- (id) initWithPosition:(CGPoint)pos direction:(CGPoint)dir length:(float)length width:(float)width speed:(float)speed damages:(int)damages effect:(int)effect area:(BOOL)area color:(UIColor*)color {
+- (id) initWithPosition:(CGPoint)pos direction:(CGPoint)dir length:(float)length width:(float)width speed:(float)speed damages:(int)damages effect:(int)effect area:(BOOL)area color:(UIColor*)color undestroyable:(BOOL)undestroyable {
     self = [[Bullet alloc] init];
     if (self ) {
         position = pos;
         direction = dir;
+        float n = sqrt(direction.x*direction.x + direction.y*direction.y);
+        direction.x/=n;
+        direction.y/=n;
         self.length = length;
         self.width = width;
         self.speed = speed;
         self.damages = damages;
         self.effect = effect;
         self.color = color;
+        self.undestroyable = undestroyable;
     }
     return self;
 }
@@ -33,9 +37,12 @@
     return direction;
 }
 
-- (void) move {
+- (void) moveInMap:(Map*)map {
     position.x+=direction.x*self.speed;
     position.y+=direction.y*self.speed;
+    
+    if(position.x < -self.length || position.x > map.width + self.length || position.y < -self.length || position.y > map.height + self.length)
+        [map.toDelete addObject:self];
 }
 
 - (BOOL) isCollidingCreep:(Creep*)creep {
@@ -55,16 +62,19 @@
 }
 
 - (void) hitCreep:(Creep*)creep inMap:(Map*)map{
-    if (self.effect == GLACE) {
-        [creep freeze];
+    if (self.effect == FREEZE) {
+        creep.isFrozen = YES;
+        creep.freezeDuration = DURATION_FREEZE;
     }
     
     if (self.effect == POISON) {
-        [creep poison];
+        creep.isPoisonned = YES;
+        creep.poisonDuration = DURATION_POISON;
     }
     
     [creep hitByDamages:self.damages inMap:map]; //ATTENTION LE MONSTRE ACTUEL PEUT DISPARAITRE ICI
-    [map.toDelete addObject:self]; //ATTENTION PROJECTILE DEJA RETIRE EN CAS DE DEGATS DE ZONE
+    if (!self.undestroyable)
+        [map.toDelete addObject:self]; //ATTENTION PROJECTILE DEJA RETIRE EN CAS DE DEGATS DE ZONE
 }
 
 + (void) destroyBulletsInMap:(Map*)map {
@@ -73,7 +83,7 @@
 
 - (void) hitCreepsAroundCreep:(Creep*)creep inMap:(Map*)map {
     for (Creep* creepNeighbor in map.creeps) {
-        if ([Tower distanceBetween: [creep getCoordinates] and:position] < DISTANCE_ZONE) {
+        if ([Tower distanceBetween: [creep getCoordinates] and:position] < DISTANCE_AREA) {
             if (creepNeighbor != creep)
                 [self hitCreep:creepNeighbor inMap:map];
         }

@@ -8,6 +8,7 @@
 
 #import "Tower.h"
 #import "Bullet.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation Tower
 - (id) initStandardWithPositionX:(int)x Y:(int)y {
@@ -18,7 +19,7 @@
         self.bulletSpeed = 0.2;
         self.bulletLength = 0.3;
         self.bulletWidth = 0.2;
-        self.damages = 1;
+        self.damages = 2;
         self.color = [UIColor colorWithRed:0.8 green:0.2 blue:0.1 alpha:1];
         self.reloadDelay = 20;
         self.bulletColor = [UIColor blackColor];
@@ -35,12 +36,90 @@
         self.bulletSpeed = 0.1;
         self.bulletLength = 0.5;
         self.bulletWidth = 0.5;
-        self.damages = 5;
+        self.damages = 8;
         self.color = [UIColor colorWithWhite:0.1 alpha:1];
-        self.reloadDelay = 30;
+        self.reloadDelay = 40;
         self.bulletColor = [UIColor blackColor];
-        self.price = 50;
+        self.price = 40;
         self.areaEffect = YES;
+    }
+    return self;
+}
+
+- (id) initFreezeWithPositionX:(int)x Y:(int)y {
+    self = [super initWithPositionX:x Y:y];
+    if (self) {
+        self.radius = 0.5;
+        self.fieldOfView = 2.5;
+        self.bulletSpeed = 0.3;
+        self.bulletLength = 0.2;
+        self.bulletWidth = 0.2;
+        self.damages = 0;
+        self.color = [UIColor cyanColor];
+        self.reloadDelay = 30;
+        self.bulletColor = self.color;
+        self.price = 30;
+        self.effect = FREEZE;
+        self.areaEffect = YES;
+    }
+    return self;
+}
+
+- (id) initFastWithPositionX:(int)x Y:(int)y {
+    self = [super initWithPositionX:x Y:y];
+    if (self) {
+        self.radius = 0.5;
+        self.fieldOfView = 6;
+        self.bulletSpeed = 1.0;
+        self.bulletLength = 3.0;
+        self.bulletWidth = 0.2;
+        self.damages = 1;
+        self.color = [UIColor darkGrayColor];
+        self.reloadDelay = 8;
+        self.bulletColor = self.color;
+        self.price = 100;
+        self.effect = NORMAL;
+        self.bulletUndestroyable = NO;
+        self.areaEffect = NO;
+    }
+    return self;
+}
+
+- (id) initLaserWithPositionX:(int)x Y:(int)y {
+    self = [super initWithPositionX:x Y:y];
+    if (self) {
+        self.radius = 0.5;
+        self.fieldOfView = 4;
+        self.bulletSpeed = 0.5;
+        self.bulletLength = 4.0;
+        self.bulletWidth = 0.1;
+        self.damages = 1;
+        self.color = [UIColor orangeColor];
+        self.reloadDelay = 30;
+        self.bulletColor = self.color;
+        self.price = 80;
+        self.effect = NORMAL;
+        self.bulletUndestroyable = YES;
+        self.areaEffect = NO;
+    }
+    return self;
+}
+
+- (id) initPoisonWithPositionX:(int)x Y:(int)y {
+    self = [super initWithPositionX:x Y:y];
+    if (self) {
+        self.radius = 0.5;
+        self.fieldOfView = 2.5;
+        self.bulletSpeed = 0.3;
+        self.bulletLength = 0.2;
+        self.bulletWidth = 0.2;
+        self.damages = 0;
+        self.color = [UIColor purpleColor];
+        self.reloadDelay = 30;
+        self.bulletColor = self.color;
+        self.price = 60;
+        self.effect = POISON;
+        self.areaEffect = NO;
     }
     return self;
 }
@@ -58,6 +137,10 @@
         self.reloadDelay = t.reloadDelay;
         self.bulletColor = t.bulletColor;
         self.price = t.price;
+        self.effect = t.effect;
+        self.areaEffect = t.areaEffect;
+        self.bulletUndestroyable = t.bulletUndestroyable;
+        
     }
     return self;
 }
@@ -112,7 +195,7 @@
     }
     else {
         CGPoint directionBullet = [Tower differenceBetween:[self getCoordinates] and:[self.target getCoordinates]];
-        Bullet* bullet = [[Bullet alloc] initWithPosition:[self getCoordinates] direction:directionBullet length:self.bulletLength width:self.bulletWidth speed:self.bulletSpeed damages:self.damages effect:self.effect area:self.areaEffect color:self.bulletColor];
+        Bullet* bullet = [[Bullet alloc] initWithPosition:[self getCoordinates] direction:directionBullet length:self.bulletLength width:self.bulletWidth speed:self.bulletSpeed damages:self.damages effect:self.effect area:self.areaEffect color:self.bulletColor undestroyable:self.bulletUndestroyable];
         [bullets addObject:bullet];
         self.reloadTime = self.reloadDelay;
     }

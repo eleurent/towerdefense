@@ -22,11 +22,16 @@
 @property (strong, nonatomic) UIColor *bulletColor;
 @property (assign, nonatomic) int effect;
 @property (assign, nonatomic) BOOL areaEffect;
+@property (assign, nonatomic) BOOL bulletUndestroyable;
 @property (strong, nonatomic) UIColor *color;
 @property (strong, nonatomic) Creep *target;
 
 - (id) initStandardWithPositionX:(int)x Y:(int)y;
+- (id) initFreezeWithPositionX:(int)x Y:(int)y;
 - (id) initHeavyWithPositionX:(int)x Y:(int)y;
+- (id) initPoisonWithPositionX:(int)x Y:(int)y;
+- (id) initFastWithPositionX:(int)x Y:(int)y;
+- (id) initLaserWithPositionX:(int)x Y:(int)y;
 - (id) initFromTower:(Tower*)t withPositionX:(int)x Y:(int)y;
 - (float) getRadiusWithZoom:(float)zoom;
 - (float) getFOVWithZoom:(float)zoom;

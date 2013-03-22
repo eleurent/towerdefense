@@ -68,6 +68,7 @@
     else {
         CGPoint touchEnd = [[touches anyObject] locationInView:self.view];
         if ([self distanceBetweenTwoPoints:touchOriginSelection toPoint:touchEnd] < 5) {
+            [view sellTowerIn:touchOriginSelection];
             [view selectTowerIn:touchOriginSelection];
         }
     }
@@ -105,6 +106,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     isCreatingTower = false;
     tdViewGame* viewGame = (tdViewGame*) self.view;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:viewGame

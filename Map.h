@@ -22,6 +22,7 @@
 @property (assign, nonatomic) int height;
 @property (assign, nonatomic) int money;
 @property (assign, nonatomic) int clock;
+@property (assign, nonatomic) int lives;
 
 - (id)initWithWidth:(int)width andHeight:(int)height;
 - (void) buildFirstPath;
